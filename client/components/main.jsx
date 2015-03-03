@@ -18,13 +18,12 @@ var Main = React.createClass({
   },
 
   _onChange: function () {
-
     this.setState(AppStore.getState());
   },
 
   render: function() {
     console.log('the state', this.state);
-    
+
     var component;
     if (this.state.loading) {
       component = <h1>Loading...</h1>;
