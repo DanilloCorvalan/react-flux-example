@@ -6,13 +6,13 @@ var AppActions = {
     window.fbAsyncInit = function() {
       FB.init({
         appId      : '784445024959168',
-        xfbml      : true,
-        version    : 'v2.2'
+        xfbml      : false,
+        version    : 'v2.2',
+        status     : true
       });
 
-      console.log('Loaded SDK on window');
-      AppDispatcher.dispatch({
-        actionType: Constants.REQUEST_FACEBOOK_SDK_SUCCESS
+      AppDispatcher.handleServerAction({
+        type: Constants.REQUEST_FACEBOOK_SDK_SUCCESS
       });
     }.bind(this);
 
@@ -20,12 +20,12 @@ var AppActions = {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) {return;}
       js = d.createElement(s); js.id = id;
-      js.src = "http://connect.facebook.net/en_US/sdk.js";
+      js.src = "http://connect.facebook.net/en_US/sdk/debug.js";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
-    AppDispatcher.dispatch({
-      actionType: Constants.REQUEST_FACEBOOK_SDK
+    AppDispatcher.handleViewAction({
+      type: Constants.REQUEST_FACEBOOK_SDK
     });
   }
 };

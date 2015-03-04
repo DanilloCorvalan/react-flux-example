@@ -1,6 +1,12 @@
 var React = require('react');
 var AppActions = require('../actions/app-actions');
+var LoginActions = require('../actions/login-actions');
 var AppStore = require('../stores/app-store');
+
+var Loading = require('./loading');
+var LoginComponent = require('./login-component');
+var Header = require('./header');
+var UserLikesList = require('./user-likes-list');
 
 var Main = React.createClass({
 
@@ -14,26 +20,34 @@ var Main = React.createClass({
   },
 
   componentWillUnmount: function() {
-    AppStore.removeChaneListener(this._onChange);
+    AppStore.removeChangeListener(this._onChange);
+  },
+
+  componentWillUpdate: function (nextProps, nextState) {
+    if (nextState.isSdkLoaded && !nextState.isSubscribedToLoginChanges) {
+      LoginActions.subscribeToLoginChanges();
+    }
   },
 
   _onChange: function () {
-    this.setState(AppStore.getState());
+    var state = AppStore.getState();
+    this.setState(state);
   },
 
   render: function() {
-    console.log('the state', this.state);
-
-    var component;
-    if (this.state.loading) {
-      component = <h1>Loading...</h1>;
-    } else if (this.state.loaded) {
-      component = <h1>Loaded Facebook SDK!</h1>;
-    } else {
-      component = <span>Rahh!</span>;
-    }
-
-    return component;
+    return (
+      <section id="app-section">
+        {this.state.loading && <Loading />}
+        {this.state.isSdkLoaded && !this.state.loggedIn &&
+          <LoginComponent />
+        }
+        {this.state.isSdkLoaded && this.state.loggedIn &&
+          <div>
+            <Header />
+          </div>
+        }
+      </section>
+    );
   }
 
 });
