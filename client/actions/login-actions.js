@@ -37,7 +37,7 @@ var LoginActions = {
   },
 
   requestLogin: function () {
-    FB.login();
+    FB.login(null, { scope: 'user_location,user_likes' });
   },
 
   requestLogout: function () {

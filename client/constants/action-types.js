@@ -11,5 +11,7 @@ module.exports = KeyMirror({
   REQUEST_USER_DETAILS_SUCCESS: null,
   REQUEST_USER_DETAILS_ERROR: null,
 
-
+  REQUEST_USER_LIKES: null,
+  REQUEST_USER_LIKES_SUCCESS: null,
+  REQUEST_USER_LIKES_ERROR: null,
 });

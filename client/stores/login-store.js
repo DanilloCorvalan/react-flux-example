@@ -42,7 +42,6 @@ LoginStore.dispatchToken = AppDispatcher.register(function (payload) {
       _state.userDetails = null;
       _state.error = null;
 
-      LoginStore.emitChange();
       break;
 
     case Constants.REQUEST_USER_DETAILS_SUCCESS:
@@ -50,7 +49,6 @@ LoginStore.dispatchToken = AppDispatcher.register(function (payload) {
       _state.userDetails = action.data;
       _state.error = null;
 
-      LoginStore.emitChange();
       break;
 
     case Constants.REQUEST_USER_DETAILS_ERROR:
@@ -58,12 +56,13 @@ LoginStore.dispatchToken = AppDispatcher.register(function (payload) {
       _state.userDetails = null;
       _state.error = action.error;
 
-      LoginStore.emitChange();
       break;
 
     default:
-      //no op
+      return;
   }
+
+  LoginStore.emitChange();
 });
 
 module.exports = LoginStore;

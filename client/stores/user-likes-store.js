@@ -7,14 +7,11 @@ var CHANGE_EVENT = 'change';
 
 var _state = {
   loading: false,
-  isSdkLoaded: false,
-  loggedIn: false,
-  isSubscribedToLoginChanges: false,
-
+  list: [],
   error: null
 };
 
-var AppStore = assign({}, EventEmitter.prototype, {
+var UserLikesStore = assign({}, EventEmitter.prototype, {
   getState: function () {
     return _state;
   },
@@ -32,28 +29,27 @@ var AppStore = assign({}, EventEmitter.prototype, {
   }
 });
 
-AppStore.dispatchToken = AppDispatcher.register(function (payload) {
+UserLikesStore.dispatchToken = AppDispatcher.register(function (payload) {
   var action = payload.action;
 
   switch (action.type) {
-    case Constants.REQUEST_FACEBOOK_SDK:
+    case Constants.REQUEST_USER_LIKES:
       _state.loading = true;
+      _state.error = null;
 
       break;
 
-    case Constants.REQUEST_FACEBOOK_SDK_SUCCESS:
+    case Constants.REQUEST_USER_LIKES_SUCCESS:
       _state.loading = false;
-      _state.isSdkLoaded = true;
+      _state.list = action.data;
+      _state.error = null;
 
       break;
 
-    case Constants.AUTH_STATUS_CHANGED:
-      _state.loggedIn = action.response.status === 'connected';
-
-      break;
-
-    case Constants.SUBSCRIBE_AUTH_STATUS_CHANGED:
-      _state.isSubscribedToLoginChanges = true;
+    case Constants.REQUEST_USER_LIKES_ERROR:
+      _state.loading = false;
+      _state.list = [];
+      _state.error = action.error;
 
       break;
 
@@ -61,7 +57,7 @@ AppStore.dispatchToken = AppDispatcher.register(function (payload) {
       return;
   }
 
-  AppStore.emitChange();
+  UserLikesStore.emitChange();
 });
 
-module.exports = AppStore;
+module.exports = UserLikesStore;

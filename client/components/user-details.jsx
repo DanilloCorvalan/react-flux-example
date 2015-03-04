@@ -8,7 +8,8 @@ var UserDetails = React.createClass({
     return (
       <div className="user-details">
         <span className="user-name">{user.name}</span>
-        <span className="user-location">{user.location}</span>
+        {' - '}
+        <span className="user-location">{user.location && user.location.name}</span>
         {' | '}
         <a href="#" onClick={this.props.onLogout}>Logout</a>
       </div>

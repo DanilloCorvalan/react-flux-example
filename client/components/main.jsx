@@ -44,6 +44,7 @@ var Main = React.createClass({
         {this.state.isSdkLoaded && this.state.loggedIn &&
           <div>
             <Header />
+            <UserLikesList />
           </div>
         }
       </section>
