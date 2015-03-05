@@ -7,8 +7,8 @@ var UserLikeListItem = React.createClass({
 
     return (
       <li>
+        <h1>{item.name}</h1>
         <img src={item.picture.data.url} />
-        <span>{item.name}</span>
       </li>
     );
   }
