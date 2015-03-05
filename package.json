@@ -4,19 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node server/server.js"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "file-loader": "^0.8.1",
-    "jsx-loader": "^0.12.2",
-    "webpack": "^1.6.0"
-  },
   "dependencies": {
     "flux": "^2.0.1",
     "keymirror": "^0.1.1",
     "lodash": "^3.3.1",
     "object-assign": "^2.0.0",
     "react": "^0.12.2"
+  },
+  "devDependencies": {
+    "file-loader": "^0.8.1",
+    "jsx-loader": "^0.12.2",
+    "react-hot-loader": "^1.1.7",
+    "webpack": "^1.7.2",
+    "webpack-dev-server": "^1.7.0"
   }
 }
